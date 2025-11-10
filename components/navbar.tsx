@@ -11,9 +11,9 @@ export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
 
   const tentangSekolahItems = [
-    { label: "Sejarah", href: "#" },
-    { label: "Visi Misi", href: "#" },
-    { label: "Struktur Organisasi", href: "#" },
+    { label: "Sejarah", href: "/sejarah-sekolah" },
+    { label: "Visi Misi", href: "visi-misi" },
+    { label: "Struktur Organisasi", href: "/struktur-organisasi" },
   ]
 
   return (
@@ -23,7 +23,7 @@ export function Navbar() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <Image src="/logo_sekolah.png" alt="MIS Nurul Falah Areman" width={50} height={50} className="w-12 h-12" />
-            <span className="text-base font-bold text-green-700 hidden sm:block">MIS NURUL FALAH AREMAN</span>
+            <span className="text-base font-bold text-[#1D8144] hidden sm:block">MIS NURUL FALAH AREMAN</span>
           </div>
 
           {/* Desktop Menu */}
@@ -65,7 +65,7 @@ export function Navbar() {
 
           {/* Login Button */}
           <Link href="/login">
-            <Button className="bg-green-700 hover:bg-green-800 text-white font-semibold px-6 py-2 rounded-lg hidden md:block">
+            <Button className="bg-[#1D8144] hover:bg-green-800 text-white font-semibold px-6 py-2 rounded-lg hidden md:block">
               Login
             </Button>
           </Link>

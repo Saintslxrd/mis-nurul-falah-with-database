@@ -1,4 +1,5 @@
 import { Facebook, Youtube, Instagram, Phone, Mail } from "lucide-react"
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -33,9 +34,21 @@ export function Footer() {
                 <div>
                   <h4 className="font-semibold text-gray-800 mb-2">Tentang Sekolah</h4>
                   <ul className="space-y-1">
-                    <li><a href="#" className="text-sm text-gray-700 hover:text-green-800">Sejarah</a></li>
-                    <li><a href="#" className="text-sm text-gray-700 hover:text-green-800">Visi Misi</a></li>
-                    <li><a href="#" className="text-sm text-gray-700 hover:text-green-800">Struktur organisasi</a></li>
+                    <li>
+                      <Link href="/sejarah-sekolah" className="text-sm text-gray-700 hover:text-green-800">
+                        Sejarah
+                      </Link>
+
+                      <Link href="/sejarah-sekolah " className="text-sm text-gray-700 hover:text-green-800">
+                        Visi Misi
+                      </Link>
+
+                      <Link href="/sejarah-sekolah " className="text-sm text-gray-700 hover:text-green-800">
+                        Struktur Organisasi
+                      </Link>
+
+                    </li>
+                    
                   </ul>
                 </div>
 
@@ -49,7 +62,7 @@ export function Footer() {
                 <a href="https://www.facebook.com/profile.php?id=61562167564038&locale=id_ID" className="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-green-700 hover:text-white transition-all">
                   <Facebook className="w-4 h-4" />
                 </a>
-                <a href="#" className="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-green-700 hover:text-white transition-all">
+                <a href="https://www.youtube.com/@misnurulfalahareman5287" className="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-green-700 hover:text-white transition-all">
                   <Youtube className="w-4 h-4" />
                 </a>
                 <a href="https://www.instagram.com/misnurulfalahareman/" className="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-green-700 hover:text-white transition-all">
@@ -67,7 +80,7 @@ export function Footer() {
             </div>
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-gray-700" />
-              <span className="text-sm text-gray-800">lorem ipsum</span>
+              <span className="text-sm text-gray-800">minurulfalahareman@gmail.com</span>
             </div>
           </div>
         </div>
