@@ -1,59 +1,63 @@
 "use client"
 
+import { useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Image from "next/image"
 import BrosurSlider from "@/components/brosurSlider"
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function GaleriPage() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+
   const galeriData = [
     {
       id: 1,
       title: "Pawai Marhaban Ya Ramadhan",
       date: "22–Oktober–2025",
-      image: "/galeri/pawai.png",
+      image: "/galeri/2.png",
     },
     {
       id: 2,
       title: "Foto Guru–guru setelah Pawai",
       date: "22–Oktober–2025",
-      image: "/galeri/guru-pawai.png",
+      image: "/galeri/3.png",
     },
     {
       id: 3,
       title: "Taman Mini Indonesia",
       date: "22–Oktober–2025",
-      image: "/galeri/tmii1.png",
+      image: "/galeri/1.png",
     },
     {
       id: 4,
       title: "Taman Mini Indonesia",
       date: "22–Oktober–2025",
-      image: "/galeri/tmii2.png",
+      image: "/galeri/4.png",
     },
     {
       id: 5,
       title: "Sambutan Kepala Sekolah",
       date: "22–Oktober–2025",
-      image: "/galeri/sambutan.png",
+      image: "/galeri/5.png",
     },
     {
       id: 6,
       title: "Penampilan Seni Tari",
       date: "22–Oktober–2025",
-      image: "/galeri/seni-tari.png",
+      image: "/galeri/6.png",
     },
     {
       id: 7,
       title: "Foto bersama Guru–guru",
       date: "22–Oktober–2025",
-      image: "/galeri/guru-bersama.png",
+      image: "/galeri/7.png",
     },
     {
       id: 8,
       title: "Pengetesan BTQ",
       date: "22–Oktober–2025",
-      image: "/galeri/btq.png",
+      image: "/galeri/8.png",
     },
   ]
 
@@ -73,9 +77,14 @@ export default function GaleriPage() {
               {galeriData.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-[#1D8144] text-left"
+                  className="text-left cursor-pointer"
+                  onClick={() => setSelectedImage(item.image)}
                 >
-                  <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                    className="relative w-full aspect-4/3 rounded-lg overflow-hidden shadow-lg"
+                  >
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -83,7 +92,7 @@ export default function GaleriPage() {
                       className="object-cover rounded-lg"
                       sizes="(max-width: 768px) 100vw, 25vw"
                     />
-                  </div>
+                  </motion.div>
                   <h2 className="text-white text-base font-semibold mt-3 mb-1">
                     {item.title}
                   </h2>
@@ -97,6 +106,41 @@ export default function GaleriPage() {
 
       <BrosurSlider />
       <Footer />
+
+      {/* Modal Preview Gambar */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+          >
+            <motion.div
+              className="relative"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <Image
+                src={selectedImage}
+                alt="Preview Gambar"
+                width={900}
+                height={600}
+                className="rounded-lg object-contain max-h-[90vh] max-w-[90vw]"
+              />
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute -top-4 -right-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold shadow-md"
+              >
+                ✕
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }

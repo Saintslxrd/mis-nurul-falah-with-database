@@ -1,6 +1,8 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
+import { motion, AnimatePresence } from "framer-motion"
 
 const newsItems = [
   {
@@ -26,23 +28,34 @@ const newsItems = [
 ]
 
 export function NewsCarousel() {
+  const [selectedNews, setSelectedNews] = useState<{
+    image: string
+    title: string
+  } | null>(null)
+
   return (
-    <section className="bg-[#1D8143] py-16">
+    <section className="bg-[#1D8143] py-16 relative">
       <div className="max-w-7xl mx-auto px-6">
+        {/* Judul */}
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
           Berita Sekolah
         </h2>
 
+        {/* Grid Berita */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {newsItems.map((item) => (
-            <div key={item.id}>
-              <div className="overflow-hidden bg-white shadow-md">
+            <div
+              key={item.id}
+              className="group cursor-pointer"
+              onClick={() => setSelectedNews(item)}
+            >
+              <div className="overflow-hidden bg-white rounded-lg shadow-md">
                 <div className="relative aspect-square">
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
               </div>
@@ -53,6 +66,50 @@ export function NewsCarousel() {
           ))}
         </div>
       </div>
+
+      {/* Modal Preview */}
+      <AnimatePresence>
+        {selectedNews && (
+          <motion.div
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedNews(null)}
+          >
+            <motion.div
+              className="relative bg-white rounded-2xl overflow-hidden shadow-2xl max-w-3xl w-full"
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative w-full aspect-video">
+                <Image
+                  src={selectedNews.image}
+                  alt={selectedNews.title}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-bold text-gray-900">
+                  {selectedNews.title}
+                </h3>
+              </div>
+
+              {/* Tombol Tutup */}
+              <button
+                onClick={() => setSelectedNews(null)}
+                className="absolute top-3 right-3 bg-white/90 text-black rounded-full w-8 h-8 flex items-center justify-center font-bold shadow-md hover:bg-white transition"
+              >
+                ✕
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

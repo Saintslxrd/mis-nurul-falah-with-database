@@ -5,6 +5,8 @@ import { NewsCarousel } from "@/components/newsCarosel";
 import { Footer } from "@/components/footer";
 import BrosurSlider from "@/components/brosurSlider";
 import EkskulSlider from "@/components/ekskulSlider";
+import { StudentGrafik } from "@/components/studentGrafik";
+import { MapsSection } from "@/components/mapsSection";
 
 export default function Home() {
   return (
@@ -20,8 +22,8 @@ export default function Home() {
       <NewsCarousel/>
       <BrosurSlider/>
       <EkskulSlider/>
-
-
+      <StudentGrafik/>
+      <MapsSection/>
       <Footer/>
     </main>
   );

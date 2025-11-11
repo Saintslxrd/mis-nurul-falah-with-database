@@ -58,14 +58,15 @@ export function Navbar() {
             <Link href="/galeri" className="text-gray-800 hover:text-green-700 font-medium transition-colors">Galeri</Link>
           </div>
 
-          {/* Mobile Button */}
-          <button className="md:hidden" onClick={() => setIsMobileOpen(!isMobileOpen)}>
+          {/* Mobile Button - Saya tambahkan 'md:hidden' untuk memastikan dia hanya muncul di mobile */}
+          <button className="md:hidden text-gray-800" onClick={() => setIsMobileOpen(!isMobileOpen)}>
             {isMobileOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
-          {/* Login Button */}
-          <Link href="/login">
-            <Button className="bg-[#1D8144] hover:bg-green-800 text-white font-semibold px-6 py-2 rounded-lg hidden md:block">
+          {/* Login Button Desktop - PERBAIKAN DISINI */}
+          {/* Class 'hidden md:block' dipindahkan ke Link agar wrapper-nya juga hilang di mobile */}
+          <Link href="/login" className="hidden md:block">
+            <Button className="bg-[#1D8144] hover:bg-green-800 text-white font-semibold px-6 py-2 rounded-lg">
               Login
             </Button>
           </Link>
@@ -73,24 +74,29 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {isMobileOpen && (
-          <div className="md:hidden flex flex-col gap-4 py-4">
-            <Link href="/" className="text-gray-800 hover:text-green-700 font-medium">Home</Link>
-            <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="flex items-center gap-2 text-gray-800 font-medium">
+          <div className="md:hidden flex flex-col gap-4 py-4 border-t border-green-100 mt-2">
+            <Link href="/" className="text-gray-800 hover:text-green-700 font-medium px-2">Home</Link>
+            <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="flex items-center gap-2 text-gray-800 font-medium px-2">
               Tentang Sekolah <ChevronDown className={`${isDropdownOpen ? "rotate-180" : ""}`} size={18} />
             </button>
             {isDropdownOpen && (
-              <div className="ml-4 flex flex-col gap-2">
+              <div className="ml-4 flex flex-col gap-2 border-l-2 border-green-200 pl-4">
                 {tentangSekolahItems.map((item) => (
-                  <Link key={item.label} href={item.href} className="text-gray-800 hover:text-green-700 font-medium">
+                  <Link key={item.label} href={item.href} className="text-gray-800 hover:text-green-700 font-medium py-1">
                     {item.label}
                   </Link>
                 ))}
               </div>
             )}
-            <Link href="/ppdb" className="text-gray-800 hover:text-green-700 font-medium">PPDB</Link>
-            <Link href="/berita" className="text-gray-800 hover:text-green-700 font-medium">Berita</Link>
-            <Link href="/galeri" className="text-gray-800 hover:text-green-700 font-medium">Galeri</Link>
-            <Button className="bg-green-700 hover:bg-green-800 text-white font-semibold px-4 py-2 rounded-lg w-fit">Login</Button>
+            <Link href="/ppdb" className="text-gray-800 hover:text-green-700 font-medium px-2">PPDB</Link>
+            <Link href="/berita" className="text-gray-800 hover:text-green-700 font-medium px-2">Berita</Link>
+            <Link href="/galeri" className="text-gray-800 hover:text-green-700 font-medium px-2">Galeri</Link>
+            {/* Mobile Login Button */}
+            <Link href="/login" className="mt-2">
+                <Button className="bg-[#1D8144] hover:bg-green-800 text-white font-semibold px-6 py-2 rounded-lg w-full">
+                    Login
+                </Button>
+            </Link>
           </div>
         )}
       </div>
