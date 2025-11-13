@@ -60,7 +60,11 @@ export default function StrukturGuruPage() {
               Masukan Foto <span className="text-sm text-gray-500">(PNG, JPG - Max 5MB)</span>
             </h2>
 
-            <div className="bg-white rounded-lg border-2 border-dashed border-green-300 p-8">
+            <div
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleDragDrop}
+              className="bg-white rounded-lg border-2 border-dashed border-green-300 p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-green-50 transition-colors"
+            >
               <input
                 type="file"
                 accept="image/png,image/jpeg"
@@ -69,12 +73,7 @@ export default function StrukturGuruPage() {
                 id="file-input"
               />
 
-              <label
-                htmlFor="file-input"
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={handleDragDrop}
-                className="flex flex-col items-center justify-center cursor-pointer"
-              >
+              <label htmlFor="file-input" className="flex flex-col items-center justify-center">
                 <button
                   type="button"
                   onClick={() => document.getElementById("file-input")?.click()}
@@ -83,11 +82,11 @@ export default function StrukturGuruPage() {
                   <Upload className="w-5 h-5" />
                   Upload File
                 </button>
-                <p className="text-gray-400">Klik untuk memilih Foto atau Drag & Drop</p>
+                <p className="text-gray-400">Klik untuk memilih Foto atau Drag & Drop di area ini</p>
               </label>
 
               {uploadedImage && (
-                <div className="mt-6">
+                <div className="mt-6 w-full">
                   <p className="text-sm text-gray-600 mb-3">Preview: {uploadedImage.file.name}</p>
                   <div className="relative h-48 w-full bg-gray-100 rounded-lg overflow-hidden">
                     <Image
@@ -114,9 +113,11 @@ export default function StrukturGuruPage() {
 
           {/* Data Table */}
           <div>
-            <h2 className="text-2xl font-bold text-green-700 mb-6 pb-4 border-b-4 border-green-700">Struktur Guru</h2>
+            <h2 className="text-2xl font-bold text-green-700 mb-6 pb-4 border-b-4 border-green-700">
+              Struktur Guru
+            </h2>
 
-            <div className="bg-white rounded-lg overflow-hidden">
+            <div className="bg-white rounded-lg overflow-hidden shadow-lg">
               <div className="grid grid-cols-2 gap-4 bg-green-700 text-white p-4 font-semibold">
                 <div>Gambar Struktur</div>
                 <div>Aksi</div>
@@ -124,7 +125,10 @@ export default function StrukturGuruPage() {
 
               <div className="divide-y">
                 {existingStructures.map((structure) => (
-                  <div key={structure.id} className="grid grid-cols-2 gap-4 p-4 hover:bg-gray-50">
+                  <div
+                    key={structure.id}
+                    className="grid grid-cols-2 gap-4 p-4 hover:bg-amber-50 transition-colors"
+                  >
                     <div className="relative h-40 bg-gray-100 rounded-lg overflow-hidden">
                       <Image
                         src={structure.image || "/placeholder.svg"}

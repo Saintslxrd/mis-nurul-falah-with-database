@@ -59,10 +59,15 @@ export default function PPDBPage() {
           {/* Upload Section */}
           <div>
             <h2 className="text-2xl font-bold text-green-700 mb-6">
-              Masukan Poster PPDB <span className="text-sm text-gray-500">(PNG, JPG - Max 5MB)</span>
+              Masukan Poster PPDB{" "}
+              <span className="text-sm text-gray-500">(PNG, JPG - Max 5MB)</span>
             </h2>
 
-            <div className="bg-white rounded-lg border-2 border-dashed border-green-300 p-8">
+            <div
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleDragDrop}
+              className="bg-white rounded-lg border-2 border-dashed border-green-300 p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-green-50 transition-colors"
+            >
               <input
                 type="file"
                 accept="image/png,image/jpeg"
@@ -73,25 +78,29 @@ export default function PPDBPage() {
 
               <label
                 htmlFor="ppdb-file-input"
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={handleDragDrop}
-                className="flex flex-col items-center justify-center cursor-pointer"
+                className="flex flex-col items-center justify-center"
               >
                 <button
                   type="button"
-                  onClick={() => document.getElementById("ppdb-file-input")?.click()}
+                  onClick={() =>
+                    document.getElementById("ppdb-file-input")?.click()
+                  }
                   className="bg-green-700 hover:bg-green-800 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 mb-4 transition-colors"
                 >
                   <Upload className="w-5 h-5" />
                   Upload File
                 </button>
-                <p className="text-gray-400">Klik untuk memilih Poster atau Drag & Drop</p>
+                <p className="text-gray-400">
+                  Klik untuk memilih Poster atau Drag & Drop di area ini
+                </p>
               </label>
 
               {uploadedImage && (
-                <div className="mt-6">
-                  <p className="text-sm text-gray-600 mb-3">Preview: {uploadedImage.file.name}</p>
-                  <div className="relative h-48 w-full bg-gray-100 rounded-lg overflow-hidden">
+                <div className="mt-6 w-full">
+                  <p className="text-sm text-gray-600 mb-3">
+                    Preview: {uploadedImage.file.name}
+                  </p>
+                  <div className="relative h-64 w-full bg-gray-100 rounded-lg overflow-hidden">
                     <Image
                       src={uploadedImage.preview || "/placeholder.svg"}
                       alt="Preview"
@@ -116,24 +125,36 @@ export default function PPDBPage() {
 
           {/* Data Table */}
           <div>
-            <h2 className="text-2xl font-bold text-green-700 mb-6 pb-4 border-b-4 border-green-700">Daftar PPDB</h2>
+            <h2 className="text-2xl font-bold text-green-700 mb-6 pb-4 border-b-4 border-green-700">
+              Daftar PPDB
+            </h2>
 
-            <div className="bg-white rounded-lg overflow-hidden">
+            <div className="bg-white rounded-lg overflow-hidden shadow-lg">
               <div className="grid grid-cols-3 gap-4 bg-green-700 text-white p-4 font-semibold">
                 <div>Poster</div>
-                <div>Tanggal</div>
+                <div>Informasi</div>
                 <div>Aksi</div>
               </div>
 
               <div className="divide-y">
                 {ppdbItems.map((item) => (
-                  <div key={item.id} className="grid grid-cols-3 gap-4 p-4 hover:bg-gray-50">
+                  <div
+                    key={item.id}
+                    className="grid grid-cols-3 gap-4 p-4 hover:bg-amber-50 transition-colors"
+                  >
                     <div className="relative h-40 bg-gray-100 rounded-lg overflow-hidden">
-                      <Image src={item.image || "/placeholder.svg"} alt={item.title} fill className="object-contain" />
+                      <Image
+                        src={item.image || "/placeholder.svg"}
+                        alt={item.title}
+                        fill
+                        className="object-contain"
+                      />
                     </div>
 
                     <div className="flex flex-col justify-center">
-                      <p className="font-semibold text-gray-800">{item.title}</p>
+                      <p className="font-semibold text-gray-800">
+                        {item.title}
+                      </p>
                       <p className="text-sm text-gray-500">{item.date}</p>
                     </div>
 
