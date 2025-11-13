@@ -1,0 +1,159 @@
+"use client"
+
+import type React from "react"
+import { useState } from "react"
+import { Upload, Trash2, Edit2 } from "lucide-react"
+import Image from "next/image"
+
+export default function StrukturGuruPage() {
+  const [uploadedImage, setUploadedImage] = useState<{ file: File; preview: string } | null>(null)
+  const [existingStructures, setExistingStructures] = useState([
+    {
+      id: 1,
+      name: "Struktur Organisasi 2024",
+      image: "/organizational-structure-chart.jpg",
+    },
+  ])
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file && file.size <= 5 * 1024 * 1024) {
+      const preview = URL.createObjectURL(file)
+      setUploadedImage({ file, preview })
+    } else {
+      alert("File terlalu besar. Maksimal 5MB.")
+    }
+  }
+
+  const handleDragDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    const file = e.dataTransfer.files?.[0]
+    if (file && file.size <= 5 * 1024 * 1024) {
+      const preview = URL.createObjectURL(file)
+      setUploadedImage({ file, preview })
+    }
+  }
+
+  const handleUpload = () => {
+    if (uploadedImage) {
+      const newStructure = {
+        id: existingStructures.length + 1,
+        name: uploadedImage.file.name,
+        image: uploadedImage.preview,
+      }
+      setExistingStructures([...existingStructures, newStructure])
+      setUploadedImage(null)
+    }
+  }
+
+  const handleDelete = (id: number) => {
+    setExistingStructures(existingStructures.filter((item) => item.id !== id))
+  }
+
+  return (
+    <div className="flex-1 flex flex-col bg-amber-50">
+      <main className="flex-1 overflow-auto p-8">
+        <div className="max-w-5xl mx-auto space-y-8">
+          {/* Upload Section */}
+          <div>
+            <h2 className="text-2xl font-bold text-green-700 mb-6">
+              Masukan Foto <span className="text-sm text-gray-500">(PNG, JPG - Max 5MB)</span>
+            </h2>
+
+            <div className="bg-white rounded-lg border-2 border-dashed border-green-300 p-8">
+              <input
+                type="file"
+                accept="image/png,image/jpeg"
+                onChange={handleFileChange}
+                className="hidden"
+                id="file-input"
+              />
+
+              <label
+                htmlFor="file-input"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={handleDragDrop}
+                className="flex flex-col items-center justify-center cursor-pointer"
+              >
+                <button
+                  type="button"
+                  onClick={() => document.getElementById("file-input")?.click()}
+                  className="bg-green-700 hover:bg-green-800 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 mb-4 transition-colors"
+                >
+                  <Upload className="w-5 h-5" />
+                  Upload File
+                </button>
+                <p className="text-gray-400">Klik untuk memilih Foto atau Drag & Drop</p>
+              </label>
+
+              {uploadedImage && (
+                <div className="mt-6">
+                  <p className="text-sm text-gray-600 mb-3">Preview: {uploadedImage.file.name}</p>
+                  <div className="relative h-48 w-full bg-gray-100 rounded-lg overflow-hidden">
+                    <Image
+                      src={uploadedImage.preview || "/placeholder.svg"}
+                      alt="Preview"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={handleUpload}
+                disabled={!uploadedImage}
+                className="bg-green-700 hover:bg-green-800 disabled:bg-gray-400 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
+              >
+                Upload
+              </button>
+            </div>
+          </div>
+
+          {/* Data Table */}
+          <div>
+            <h2 className="text-2xl font-bold text-green-700 mb-6 pb-4 border-b-4 border-green-700">Struktur Guru</h2>
+
+            <div className="bg-white rounded-lg overflow-hidden">
+              <div className="grid grid-cols-2 gap-4 bg-green-700 text-white p-4 font-semibold">
+                <div>Gambar Struktur</div>
+                <div>Aksi</div>
+              </div>
+
+              <div className="divide-y">
+                {existingStructures.map((structure) => (
+                  <div key={structure.id} className="grid grid-cols-2 gap-4 p-4 hover:bg-gray-50">
+                    <div className="relative h-40 bg-gray-100 rounded-lg overflow-hidden">
+                      <Image
+                        src={structure.image || "/placeholder.svg"}
+                        alt={structure.name}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <button className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                        <Edit2 className="w-4 h-4" />
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(structure.id)}
+                        className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        Hapus
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  )
+}
