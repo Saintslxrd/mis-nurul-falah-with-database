@@ -83,17 +83,17 @@ export default function AdminGrafikPage() {
       <div className="mb-8">
         {/* Upload Image */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-green-700 mb-4">Masukan Foto Grafik</h2>
+          <h2 className="text-2xl font-bold text-[#1D8143] mb-4">Masukan Foto Grafik</h2>
           <p className="text-sm text-gray-600 mb-4">(PNG, JPG - Max 5MB)</p>
           <div
             onDragOver={handleDragOver}
             onDrop={handleDrop}
-            className="border-2 border-dashed border-green-400 rounded-lg p-8 bg-white hover:bg-green-50 transition-colors"
+            className="border-2 border-dashed border-[#1D8143] rounded-lg p-8 bg-white hover:bg-green-50 transition-colors"
           >
             <label className="flex items-center gap-3 cursor-pointer">
               <button
                 type="button"
-                className="bg-green-700 hover:bg-green-800 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+                className="bg-[#1D8143] hover:bg-green-800 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
               >
                 <Upload className="w-5 h-5" />
                 Upload File
@@ -116,10 +116,10 @@ export default function AdminGrafikPage() {
 
         {/* Date Picker */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-green-700 mb-4">Masukan Tanggal</h2>
-          <div className="border-2 border-dashed border-green-400 rounded-lg p-6 bg-white">
+          <h2 className="text-2xl font-bold text-[#1D8143] mb-4">Masukan Tanggal</h2>
+          <div className="border-2 border-dashed border-[#1D8143] rounded-lg p-6 bg-white">
             <div className="flex items-center gap-3">
-              <button className="bg-green-700 hover:bg-green-800 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+              <button className="bg-[#1D8143] hover:bg-green-800 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
                 📅 Pilih Tanggal
               </button>
               <input
@@ -136,7 +136,7 @@ export default function AdminGrafikPage() {
         <div className="flex justify-end">
           <button
             onClick={handleUpload}
-            className="bg-green-700 hover:bg-green-800 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
+            className="bg-[#1D8143] hover:bg-green-800 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
           >
             Upload
           </button>
@@ -145,12 +145,12 @@ export default function AdminGrafikPage() {
 
       {/* Table Section */}
       <div className="mt-12">
-        <h2 className="text-2xl font-bold text-green-700 mb-6 pb-4 border-b-4 border-green-700">Grafik</h2>
+        <h2 className="text-2xl font-bold text-[#1D8143] mb-6 pb-4 border-b-4 border-green-700">Grafik</h2>
 
         <div className="overflow-x-auto rounded-lg">
           <table className="w-full">
             <thead>
-              <tr className="bg-green-700 text-white">
+              <tr className="bg-[#1D8143] text-white">
                 <th className="px-6 py-4 text-left font-semibold">Tanggal Grafik</th>
                 <th className="px-6 py-4 text-left font-semibold">Grafik</th>
                 <th className="px-6 py-4 text-left font-semibold">Aksi</th>
@@ -166,7 +166,7 @@ export default function AdminGrafikPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4 flex gap-2">
-                    <button className="bg-green-200 hover:bg-green-300 text-green-700 font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                    <button className="bg-[#1D8143] hover:bg-green-300 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
                       <Edit2 className="w-4 h-4" />
                       Edit
                     </button>

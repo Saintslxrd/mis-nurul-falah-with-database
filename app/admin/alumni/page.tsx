@@ -96,25 +96,25 @@ export default function AdminAlumniPage() {
         <div className="space-y-6 mb-12">
           {/* Masukan Nama */}
           <div>
-            <label className="block text-green-700 text-lg font-bold mb-3">Masukan Nama</label>
+            <label className="block text-[#1D8143] text-lg font-bold mb-3">Masukan Nama</label>
             <input
               type="text"
               placeholder="Nama Alumni"
               value={nama}
               onChange={(e) => setNama(e.target.value)}
-              className="w-full px-4 py-3 border-2 border-dashed border-green-300 rounded-lg focus:outline-none focus:border-green-500 bg-white text-gray-700 placeholder-gray-400"
+              className="w-full px-4 py-3 border-2 border-dashed border-[#1D8143] rounded-lg focus:outline-none focus:border-green-500 bg-white text-gray-700 placeholder-gray-400"
             />
           </div>
 
           {/* Masukan Gambar Alumni */}
           <div>
-            <label className="block text-green-700 text-lg font-bold mb-3">
+            <label className="block text-[#1D8143] text-lg font-bold mb-3">
               Masukan Gambar Alumni <span className="text-sm text-gray-600">(PNG, JPG - Max 5MB)</span>
             </label>
             <div
               onDrop={handleDragDrop}
               onDragOver={(e) => e.preventDefault()}
-              className="border-2 border-dashed border-green-300 rounded-lg p-8 text-center bg-white hover:bg-green-50 transition-colors cursor-pointer"
+              className="border-2 border-dashed border-[#1D8143] rounded-lg p-8 text-center bg-white hover:bg-green-50 transition-colors cursor-pointer"
             >
               <input
                 type="file"
@@ -126,9 +126,9 @@ export default function AdminAlumniPage() {
               <label htmlFor="foto-input" className="cursor-pointer flex items-center justify-center gap-2">
                 <button
                   type="button"
-                  className="bg-green-700 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-800 flex items-center gap-2"
+                  className="bg-[#1D8143] text-white px-4 py-2 rounded-lg font-medium hover:bg-green-800 flex items-center gap-2"
                 >
-                  ⬆ Upload File
+                  Upload File
                 </button>
                 <span className="text-gray-400">Klik untuk memilih Foto atau Drag & Drop</span>
               </label>
@@ -144,25 +144,25 @@ export default function AdminAlumniPage() {
 
           {/* Masukan Kutipan */}
           <div>
-            <label className="block text-green-700 text-lg font-bold mb-3">Masukan Kutipan</label>
+            <label className="block text-[#1D8143] text-lg font-bold mb-3">Masukan Kutipan</label>
             <textarea
               placeholder="Kutipan oleh Alumni"
               value={kutipan}
               onChange={(e) => setKutipan(e.target.value)}
               rows={4}
-              className="w-full px-4 py-3 border-2 border-dashed border-green-300 rounded-lg focus:outline-none focus:border-green-500 bg-white text-gray-700 placeholder-gray-400 resize-none"
+              className="w-full px-4 py-3 border-2 border-dashed border-[#1D8143] rounded-lg focus:outline-none focus:border-green-500 bg-white text-gray-700 placeholder-gray-400 resize-none"
             />
           </div>
 
           {/* Masukan Pendidikan Tinggi */}
           <div>
-            <label className="block text-green-700 text-lg font-bold mb-3">Masukan Pendidikan Tinggi</label>
+            <label className="block text-[#1D8143] text-lg font-bold mb-3">Masukan Pendidikan Tinggi</label>
             <input
               type="text"
               placeholder="Pendidikan Tinggi Alumni Sekarang"
               value={pendidikan}
               onChange={(e) => setPendidikan(e.target.value)}
-              className="w-full px-4 py-3 border-2 border-dashed border-green-300 rounded-lg focus:outline-none focus:border-green-500 bg-white text-gray-700 placeholder-gray-400"
+              className="w-full px-4 py-3 border-2 border-dashed border-[#1D8143] rounded-lg focus:outline-none focus:border-green-500 bg-white text-gray-700 placeholder-gray-400"
             />
           </div>
 
@@ -170,7 +170,7 @@ export default function AdminAlumniPage() {
           <div className="flex justify-end">
             <button
               onClick={handleUpload}
-              className="bg-green-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-800 transition-colors"
+              className="bg-[#1D8143] text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-800 transition-colors"
             >
               Upload
             </button>
@@ -179,12 +179,12 @@ export default function AdminAlumniPage() {
 
         {/* Alumni Table Section */}
         <div>
-          <h2 className="text-green-700 text-2xl font-bold mb-6 pb-4 border-b-4 border-green-700">Alumni</h2>
+          <h2 className="text-[#1D8143] text-2xl font-bold mb-6 pb-4 border-b-4 border-green-700">Alumni</h2>
 
           <div className="overflow-x-auto rounded-lg">
             <table className="w-full bg-white">
               <thead>
-                <tr className="bg-green-700 text-white">
+                <tr className="bg-[#1D8143] text-white">
                   <th className="px-6 py-4 text-left font-semibold">Nama Alumni</th>
                   <th className="px-6 py-4 text-left font-semibold">Foto</th>
                   <th className="px-6 py-4 text-left font-semibold">Kutipan</th>
@@ -212,7 +212,7 @@ export default function AdminAlumniPage() {
                       <div className="flex justify-center gap-3">
                         <button
                           onClick={() => handleEdit(alumni.id)}
-                          className="bg-green-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-600 transition-colors"
+                          className="bg-[#1D8143] text-white px-4 py-2 rounded-lg font-medium hover:bg-green-600 transition-colors"
                         >
                           Edit
                         </button>

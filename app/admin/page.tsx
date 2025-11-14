@@ -127,7 +127,7 @@ export default function AdminDashboard() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleEdit(item)}
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium flex items-center justify-center gap-1 transition-colors"
+                    className="flex-1 bg-[#1D8143] hover:bg-green-700 text-white py-2 rounded-lg font-medium flex items-center justify-center gap-1 transition-colors"
                   >
                     <Edit2 className="w-4 h-4" />
                     <span className="hidden sm:inline">Edit</span>

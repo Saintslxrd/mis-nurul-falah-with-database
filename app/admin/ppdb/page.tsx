@@ -58,7 +58,7 @@ export default function PPDBPage() {
         <div className="max-w-5xl mx-auto space-y-8">
           {/* Upload Section */}
           <div>
-            <h2 className="text-2xl font-bold text-green-700 mb-6">
+            <h2 className="text-2xl font-bold text-[#1D8143] mb-6">
               Masukan Poster PPDB{" "}
               <span className="text-sm text-gray-500">(PNG, JPG - Max 5MB)</span>
             </h2>
@@ -66,7 +66,7 @@ export default function PPDBPage() {
             <div
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDragDrop}
-              className="bg-white rounded-lg border-2 border-dashed border-green-300 p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-green-50 transition-colors"
+              className="bg-white rounded-lg border-2 border-dashed border-[#1D8143] p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-green-50 transition-colors"
             >
               <input
                 type="file"
@@ -85,7 +85,7 @@ export default function PPDBPage() {
                   onClick={() =>
                     document.getElementById("ppdb-file-input")?.click()
                   }
-                  className="bg-green-700 hover:bg-green-800 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 mb-4 transition-colors"
+                  className="bg-[#1D8143] hover:bg-green-800 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 mb-4 transition-colors"
                 >
                   <Upload className="w-5 h-5" />
                   Upload File
@@ -116,7 +116,7 @@ export default function PPDBPage() {
               <button
                 onClick={handleUpload}
                 disabled={!uploadedImage}
-                className="bg-green-700 hover:bg-green-800 disabled:bg-gray-400 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
+                className="bg-[#1D8143] hover:bg-green-800 disabled:bg-gray-400 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
               >
                 Upload
               </button>
@@ -125,12 +125,12 @@ export default function PPDBPage() {
 
           {/* Data Table */}
           <div>
-            <h2 className="text-2xl font-bold text-green-700 mb-6 pb-4 border-b-4 border-green-700">
+            <h2 className="text-2xl font-bold text-[#1D8143] mb-6 pb-4 border-b-4 border-[#1D8143]">
               Daftar PPDB
             </h2>
 
             <div className="bg-white rounded-lg overflow-hidden shadow-lg">
-              <div className="grid grid-cols-3 gap-4 bg-green-700 text-white p-4 font-semibold">
+              <div className="grid grid-cols-3 gap-4 bg-[#1D8143] text-white p-4 font-semibold">
                 <div>Poster</div>
                 <div>Informasi</div>
                 <div>Aksi</div>
@@ -159,7 +159,7 @@ export default function PPDBPage() {
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <button className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                      <button className="bg-[#1D8143] hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 transition-colors">
                         <Edit2 className="w-4 h-4" />
                         Edit
                       </button>

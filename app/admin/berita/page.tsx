@@ -100,7 +100,7 @@ export default function AdminBeritaPage() {
   return (
     <main className="flex-1 bg-[#FBFFE4] p-8">
       {/* Header */}
-      <div className="mb-8 pb-6 border-b-4 border-green-700">
+      <div className="mb-8 pb-6 border-b-4 border-[#1D8143]">
         <h1 className="text-4xl font-bold text-green-700">Berita</h1>
       </div>
 
@@ -114,33 +114,33 @@ export default function AdminBeritaPage() {
             placeholder="Judul Berita"
             value={judul}
             onChange={(e) => setJudul(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-dashed border-green-700 rounded-lg bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:border-solid"
+            className="w-full px-4 py-3 border-2 border-dashed border-[#1D8143] rounded-lg bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:border-solid"
           />
         </div>
 
         {/* Masukan Isi Berita */}
         <div>
-          <h3 className="text-xl font-bold text-green-700 mb-3">Masukan Isi Berita</h3>
+          <h3 className="text-xl font-bold text-[#1D8143] mb-3">Masukan Isi Berita</h3>
           <textarea
             placeholder="Isi Berita"
             value={isi}
             onChange={(e) => setIsi(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-dashed border-green-700 rounded-lg bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:border-solid h-32 resize-none"
+            className="w-full px-4 py-3 border-2 border-dashed border-[#1D8143] rounded-lg bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:border-solid h-32 resize-none"
           />
         </div>
 
         {/* Masukan Gambar */}
         <div>
-          <h3 className="text-xl font-bold text-green-700 mb-3">Masukan Gambar (PNG, JPG - Max 5MB)</h3>
+          <h3 className="text-xl font-bold text-[#1D8143] mb-3">Masukan Gambar (PNG, JPG - Max 5MB)</h3>
           <div
             onDragOver={handleDragOver}
             onDrop={handleDrop}
-            className="border-2 border-dashed border-green-700 rounded-lg p-6 bg-white cursor-pointer hover:bg-green-50 transition-colors"
+            className="border-2 border-dashed border-[#1D8143] rounded-lg p-6 bg-white cursor-pointer hover:bg-green-50 transition-colors"
           >
             <label className="flex items-center gap-3 cursor-pointer">
               <button
                 type="button"
-                className="flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                className="flex items-center gap-2 bg-[#1D8143] hover:bg-green-800 text-white px-4 py-2 rounded-lg font-medium transition-colors"
               >
                 <Upload className="w-5 h-5" />
                 Upload File
@@ -166,12 +166,12 @@ export default function AdminBeritaPage() {
 
         {/* Masukan Tanggal */}
         <div>
-          <h3 className="text-xl font-bold text-green-700 mb-3">Masukan Tanggal</h3>
+          <h3 className="text-xl font-bold text-[#1D8143] mb-3">Masukan Tanggal</h3>
           <input
             type="date"
             value={tanggal}
             onChange={(e) => setTanggal(e.target.value)}
-            className="w-full px-4 py-2 border-2 border-green-700 rounded-lg bg-green-700 text-white font-medium focus:outline-none"
+            className="w-full px-4 py-2 border-2 border-[#1D8143] rounded-lg bg-green-700 text-white font-medium focus:outline-none"
           />
         </div>
       </div>
@@ -180,20 +180,20 @@ export default function AdminBeritaPage() {
       <div className="flex justify-end mb-12">
         <button
           onClick={handleUpload}
-          className="bg-green-700 hover:bg-green-800 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+          className="bg-[#1D8143] hover:bg-green-800 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
         >
           Upload
         </button>
       </div>
 
       {/* Berita pada Website Section */}
-      <div className="mb-8 pb-4 border-b-4 border-green-700">
-        <h2 className="text-2xl font-bold text-green-700">Berita pada Website</h2>
+      <div className="mb-8 pb-4 border-b-4 border-[#1D8143]">
+        <h2 className="text-2xl font-bold text-[#1D8143]">Berita pada Website</h2>
       </div>
 
       {/* Table */}
       <div className="bg-white rounded-lg overflow-hidden shadow-lg">
-        <div className="grid grid-cols-6 bg-green-700 text-white font-semibold">
+        <div className="grid grid-cols-6 bg-[#1D8143] text-white font-semibold">
           <div className="px-6 py-4">Judul Berita</div>
           <div className="px-6 py-4">Isi</div>
           <div className="px-6 py-4">Foto</div>
@@ -212,7 +212,7 @@ export default function AdminBeritaPage() {
               </div>
               <div className="px-6 py-4 text-gray-800">{item.tanggal}</div>
               <div className="px-6 py-4 col-span-2 flex gap-3 justify-center">
-                <button className="bg-green-200 hover:bg-green-300 text-green-700 px-6 py-2 rounded-lg font-semibold transition-colors">
+                <button className="bg-[#1D8143] hover:bg-green-300 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
                   Edit
                 </button>
                 <button

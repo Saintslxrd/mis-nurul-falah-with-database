@@ -11,7 +11,11 @@ export function AdminHeader() {
     const confirmLogout = window.confirm("Apakah Anda yakin ingin logout?")
 
     if (confirmLogout) {
-      router.push("/")
+      // HAPUS COOKIE auth_token
+      document.cookie = "auth_token=; path=/; max-age=0;"
+
+      // Redirect ke halaman login
+      router.push("/login")
     }
   }
 

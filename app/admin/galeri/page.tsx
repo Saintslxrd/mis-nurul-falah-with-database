@@ -77,7 +77,7 @@ export default function AdminGaleriPage() {
       <div className="space-y-6 mb-8">
         {/* Title Input */}
         <div>
-          <label className="text-green-700 font-bold text-lg mb-2 block">Masukan Judul</label>
+          <label className="text-[#1D8143] font-bold text-lg mb-2 block">Masukan Judul</label>
           <input
             type="text"
             placeholder="Judul Berita"
@@ -89,7 +89,7 @@ export default function AdminGaleriPage() {
 
         {/* Image Upload */}
         <div>
-          <label className="text-green-700 font-bold text-lg mb-2 block">
+          <label className="text-[#1D8143] font-bold text-lg mb-2 block">
             Masukan Gambar <span className="text-sm text-gray-600">(PNG, JPG - Max 5MB)</span>
           </label>
           <div
@@ -101,7 +101,7 @@ export default function AdminGaleriPage() {
               <div className="flex items-center justify-center gap-2">
                 <button
                   type="button"
-                  className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded flex items-center gap-2"
+                  className="bg-[#1D8143] hover:bg-green-800 text-white font-bold py-2 px-4 rounded flex items-center gap-2"
                   onClick={() => document.getElementById("fileInput")?.click()}
                 >
                   <Upload className="w-4 h-4" />
@@ -132,17 +132,17 @@ export default function AdminGaleriPage() {
 
         {/* Date Input */}
         <div>
-          <label className="text-green-700 font-bold text-lg mb-2 block">Masukan Tanggal</label>
+          <label className="text-[#1D8143] font-bold text-lg mb-2 block">Masukan Tanggal</label>
           <button
             onClick={() => document.getElementById("dateInput")?.click()}
-            className="w-full bg-green-700 hover:bg-green-800 text-white font-bold py-3 px-4 rounded-lg flex items-center gap-2 transition"
+            className="w-full bg-[#1D8143] hover:bg-green-800 text-white font-bold py-3 px-4 rounded-lg flex items-center gap-2 transition"
           >
             <span>📅</span>
             Pilih Tanggal
           </button>
           <input id="dateInput" type="date" value={date} onChange={(e) => setDate(e.target.value)} className="hidden" />
           {date && (
-            <p className="text-green-700 font-semibold mt-2">
+            <p className="text-[#1D8143] font-semibold mt-2">
               Tanggal dipilih: {new Date(date).toLocaleDateString("id-ID")}
             </p>
           )}
@@ -153,7 +153,7 @@ export default function AdminGaleriPage() {
       <div className="flex justify-end mb-8">
         <button
           onClick={handleUpload}
-          className="bg-green-700 hover:bg-green-800 text-white font-bold py-3 px-8 rounded-lg transition"
+          className="bg-[#1D8143] hover:bg-green-800 text-white font-bold py-3 px-8 rounded-lg transition"
         >
           Upload
         </button>
@@ -161,11 +161,11 @@ export default function AdminGaleriPage() {
 
       {/* Gallery Table */}
       <div>
-        <h2 className="text-2xl font-bold text-green-700 mb-4 pb-3 border-b-4 border-green-700">Gambar pada Galeri</h2>
+        <h2 className="text-2xl font-bold text-[#1D8143] mb-4 pb-3 border-b-4 border-green-700">Gambar pada Galeri</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-green-700 text-white">
+              <tr className="bg-[#1D8143] text-white">
                 <th className="px-6 py-4 text-left font-semibold">Judul Gambar</th>
                 <th className="px-6 py-4 text-left font-semibold">Foto</th>
                 <th className="px-6 py-4 text-left font-semibold">Tanggal</th>
@@ -191,7 +191,7 @@ export default function AdminGaleriPage() {
                   </td>
                   <td className="px-6 py-4 text-gray-600">{item.date}</td>
                   <td className="px-6 py-4 flex gap-2">
-                    <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex items-center gap-2 transition">
+                    <button className="bg-[#1D8143] hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex items-center gap-2 transition">
                       <Edit2 className="w-4 h-4" />
                       Edit
                     </button>
