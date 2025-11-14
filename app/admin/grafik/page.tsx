@@ -78,15 +78,7 @@ export default function AdminGrafikPage() {
   }
 
   return (
-    <main className="flex-1 bg-amber-50 p-8">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-8 pb-4 border-b-4 border-green-700">
-        <h1 className="text-4xl font-bold text-green-700">Grafik Murid</h1>
-        <button className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors">
-          Logout
-        </button>
-      </div>
-
+    <main className="flex-1 bg-[#FBFFE4] p-8">
       {/* Form Section */}
       <div className="mb-8">
         {/* Upload Image */}

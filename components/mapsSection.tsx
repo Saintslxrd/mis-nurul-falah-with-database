@@ -2,10 +2,10 @@
 
 export function MapsSection() {
   return (
-    <section className="bg-[#1D8143] py-12 md:py-16">
+    <section className="bg-[#1D8143] py-16 relative">
       <div className="max-w-6xl mx-auto px-6">
         {/* Judul */}
-        <h2 className="text-white text-2xl md:text-3xl font-bold mb-8 text-center">
+        <h2 className="text-[#FBFFE4] text-3xl md:text-4xl font-bold mb-10 text-center">
           Google Maps Sekolah
         </h2>
 

@@ -22,7 +22,7 @@ export function AdminSidebar() {
     <aside className="w-64 bg-green-700 text-white flex flex-col">
       {/* Logo Section */}
       <div className="p-6 border-b-2 border-green-600">
-      <div className="bg-white rounded-xl p-4 mb-4 flex items-center justify-center">
+      <div className="bg-[#FBFFE4] rounded-xl p-4 mb-4 flex items-center justify-center">
         <div className="relative w-16 h-16">
           <Image
             src="/logo_sekolah.png"
@@ -47,7 +47,7 @@ export function AdminSidebar() {
               key={item.href}
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all ${
-                isActive ? "bg-white text-green-700 shadow-lg" : "text-green-100 hover:bg-green-600"
+                isActive ? "bg-[#FBFFE4] text-green-700 shadow-lg" : "text-green-100 hover:bg-green-600"
               }`}
             >
               <Icon className="w-5 h-5" />

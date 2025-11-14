@@ -98,7 +98,7 @@ export default function AdminBeritaPage() {
   }
 
   return (
-    <main className="flex-1 bg-amber-50 p-8">
+    <main className="flex-1 bg-[#FBFFE4] p-8">
       {/* Header */}
       <div className="mb-8 pb-6 border-b-4 border-green-700">
         <h1 className="text-4xl font-bold text-green-700">Berita</h1>

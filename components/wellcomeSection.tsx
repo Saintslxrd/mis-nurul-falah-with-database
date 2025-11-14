@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react"
 
 export function WelcomeSection() {
   return (
-    <section className="bg-[#F6FBD9] py-16 md:py-24">
+    <section className="bg-[#F6FBD9] py-16 relative">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-extrabold text-green-700 text-center mb-12">
           SELAMAT DATANG DI MIS NURUL FALAH AREMAN

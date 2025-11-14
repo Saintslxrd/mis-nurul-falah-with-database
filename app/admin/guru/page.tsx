@@ -51,7 +51,7 @@ export default function StrukturGuruPage() {
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-amber-50">
+    <div className="flex-1 flex flex-col bg-[#FBFFE4]">
       <main className="flex-1 overflow-auto p-8">
         <div className="max-w-5xl mx-auto space-y-8">
           {/* Upload Section */}

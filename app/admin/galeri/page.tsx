@@ -72,7 +72,7 @@ export default function AdminGaleriPage() {
   }
 
   return (
-    <div className="flex-1 bg-amber-50 p-8">
+    <div className="flex-1 bg-[#FBFFE4] p-8">
       {/* Form Section */}
       <div className="space-y-6 mb-8">
         {/* Title Input */}

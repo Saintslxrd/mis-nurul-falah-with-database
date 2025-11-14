@@ -7,6 +7,8 @@ import BrosurSlider from "@/components/brosurSlider";
 import EkskulSlider from "@/components/ekskulSlider";
 import { StudentGrafik } from "@/components/studentGrafik";
 import { MapsSection } from "@/components/mapsSection";
+import AlumniSection from "@/components/alumniSection";
+
 
 export default function Home() {
   return (
@@ -24,6 +26,7 @@ export default function Home() {
       <EkskulSlider/>
       <StudentGrafik/>
       <MapsSection/>
+      <AlumniSection/>
       <Footer/>
     </main>
   );

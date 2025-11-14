@@ -21,7 +21,7 @@ export default function BrosurSlider() {
   ]
 
   return (
-    <section className="bg-[#FBFFE4] py-10 flex justify-center">
+    <section className="bg-[#FBFFE4] py-16 flex justify-center">
       <div className="max-w-5xl w-full px-4">
         <Swiper
           modules={[Autoplay, Pagination]}

@@ -4,9 +4,9 @@ import Image from "next/image"
 
 export function StudentGrafik() {
   return (
-    <section className="bg-amber-50 py-12 md:py-16">
+    <section className="bg-amber-50 py-16 relative">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-800">
+        <h2 className="text-[#1D8143] text-3xl md:text-4xl font-bold mb-10 text-center">
           Grafik Siswa Pertahun
         </h2>
         <div className="w-full flex justify-center">

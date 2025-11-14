@@ -90,7 +90,7 @@ export default function AdminAlumniPage() {
   }
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-[#FBFFE4]">
       <div className="max-w-5xl mx-auto px-6 py-8">
         {/* Form Section */}
         <div className="space-y-6 mb-12">

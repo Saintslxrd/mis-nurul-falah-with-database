@@ -8,7 +8,11 @@ export function AdminHeader() {
   const router = useRouter()
 
   const handleLogout = () => {
-    router.push("/")
+    const confirmLogout = window.confirm("Apakah Anda yakin ingin logout?")
+
+    if (confirmLogout) {
+      router.push("/")
+    }
   }
 
   return (
