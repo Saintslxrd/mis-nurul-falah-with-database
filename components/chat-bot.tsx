@@ -19,7 +19,7 @@ export function ChatBot() {
   type LocalMessage = { id: string; role: "user" | "assistant"; parts: LocalPart[] }
   const [faqMessages, setFaqMessages] = useState<LocalMessage[]>([])
 
-  const WA_NUMBER = "+62XXXXXXXXXXX" // Ganti dengan nomor WhatsApp sekolah
+  const WA_NUMBER = "+62XXXXXXXXXXX"
   const WA_LINK = `https://wa.me/${WA_NUMBER.replace(/[^0-9]/g, "")}`
 
   type FaqItem = { q: string; a: string; keywords: string[] }
@@ -32,12 +32,12 @@ export function ChatBot() {
     },
     {
       q: "Profil sekolah",
-      a: "MIS Nurul Falah Areman adalah Madrasah Ibtidaiyah Swasta yang berfokus pada pembentukan akhlak, literasi, dan numerasi, didukung kegiatan keagamaan dan karakter.",
-      keywords: ["profil", "tentang", "info sekolah", "mengenal", "apa itu", "deskripsi"],
+      a: "MIS Nurul Falah Areman adalah Madrasah Ibtidaiyah Swasta yang berfokus pada pembentukan akhlak, literasi, dan numerasi.",
+      keywords: ["profil", "tentang", "info sekolah", "mengenal"],
     },
     {
       q: "Sejarah sekolah",
-      a: "Sekolah berdiri atas dukungan masyarakat sekitar dan yayasan terkait, tumbuh sebagai pusat pendidikan dasar berbasis nilai-nilai keislaman. Untuk detail periode/tahun, silakan hubungi admin.",
+      a: "Sekolah berdiri atas dukungan masyarakat sekitar dan yayasan terkait. Untuk detail tahun, silakan hubungi admin.",
       keywords: ["sejarah", "berdiri", "riwayat"],
     },
     {
@@ -47,49 +47,48 @@ export function ChatBot() {
     },
     {
       q: "Misi",
-      a: "Misi: (1) Menanamkan nilai keislaman dalam keseharian; (2) Menguatkan literasi, numerasi, dan karakter; (3) Mengembangkan potensi peserta didik melalui pembelajaran aktif dan kolaboratif.",
+      a: "Misi: Menanamkan nilai keislaman, menguatkan literasi, mengembangkan potensi peserta didik.",
       keywords: ["misi"],
     },
     {
       q: "Struktur organisasi",
-      a: "Struktur organisasi: Kepala Madrasah, Wakil, Guru Kelas/Mata Pelajaran, Tenaga Kependidikan/TU, dan Komite Sekolah. Rincian nama jabatan terbaru dapat diminta ke admin.",
-      keywords: ["struktur", "organisasi", "pengurus", "kepala sekolah", "komite"],
+      a: "Struktur organisasi meliputi Kepala Madrasah, Wakil, Guru, TU, dan Komite Sekolah.",
+      keywords: ["struktur", "organisasi", "pengurus"],
     },
     {
       q: "Kurikulum",
-      a: "Kurikulum mengacu pada ketentuan madrasah ibtidaiyah yang berlaku (Kemenag). Rincian mapel dan pembagian jam pelajaran dapat dikonfirmasi ke admin.",
-      keywords: ["kurikulum", "mapel", "mata pelajaran", "k13", "merdeka"],
+      a: "Kurikulum mengikuti ketentuan madrasah ibtidaiyah (Kemenag).",
+      keywords: ["kurikulum", "mapel"],
     },
     {
       q: "PPDB / Pendaftaran",
-      a: "PPDB: Syarat umum meliputi KK, Akta Kelahiran, foto, dan formulir pendaftaran. Jadwal & teknis terbaru silakan hubungi admin di WhatsApp.",
-      keywords: ["ppdb", "pendaftaran", "daftar", "syarat"],
+      a: "PPDB: KK, Akta, foto, formulir. Untuk jadwal terbaru, hubungi WhatsApp admin.",
+      keywords: ["ppdb", "pendaftaran", "daftar"],
     },
     {
-      q: "Jam layanan / KBM",
-      a: "Informasi jam layanan dan KBM mengikuti kalender sekolah/madrasah yang berjalan. Untuk jadwal terbaru, silakan konfirmasi melalui WhatsApp admin.",
-      keywords: ["jam", "operasional", "kbm", "waktu"],
+      q: "Jam layanan",
+      a: "Jam layanan mengikuti kalender madrasah. Info terbaru hubungi admin.",
+      keywords: ["jam", "operasional", "kbm"],
     },
     {
       q: "Galeri",
-      a: "Galeri kegiatan tersedia di halaman Galeri pada situs. Untuk dokumentasi tambahan, hubungi admin.",
-      keywords: ["galeri", "foto", "dokumentasi"],
+      a: "Galeri kegiatan tersedia di halaman Galeri di situs.",
+      keywords: ["galeri", "foto"],
     },
     {
       q: "Ekstrakurikuler",
-      a: "Program ekstrakurikuler disesuaikan kebutuhan dan minat siswa (contoh umum: pramuka, tahfidz, olahraga, seni). Program dapat berubah, silakan hubungi admin.",
-      keywords: ["ekstrakurikuler", "kegiatan", "ekstra"],
+      a: "Program ekstrakurikuler: pramuka, tahfidz, olahraga, seni.",
+      keywords: ["ekstrakurikuler", "kegiatan"],
     },
     {
       q: "Kontak",
-      a: `Kontak WhatsApp sekolah: ${WA_NUMBER}. Anda juga dapat klik tautan: ${WA_LINK}`,
-      keywords: ["kontak", "wa", "whatsapp", "nomor"],
+      a: `Kontak WhatsApp sekolah: ${WA_NUMBER}. Klik: ${WA_LINK}`,
+      keywords: ["kontak", "wa", "whatsapp"],
     },
   ]
 
   function findFaq(text: string): FaqItem | null {
     const t = text.toLowerCase()
-    // cocokkan berdasarkan kemunculan salah satu keyword
     return FAQS.find((f) => f.keywords.some((k) => t.includes(k))) ?? null
   }
 
@@ -99,7 +98,7 @@ export function ChatBot() {
     const userMsg: LocalMessage = { id: `u-${idBase}`, role: "user", parts: [{ type: "text", text }] }
     const assistantText = found
       ? found.a
-      : `Maaf, pertanyaan Anda belum ada di daftar FAQ. Untuk informasi lebih lanjut, hubungi WhatsApp sekolah di ${WA_NUMBER} atau klik: ${WA_LINK}`
+      : `Maaf, pertanyaan Anda belum ada di daftar FAQ. Silakan hubungi WhatsApp admin: ${WA_NUMBER}. Link: ${WA_LINK}`
     const botMsg: LocalMessage = {
       id: `a-${idBase}`,
       role: "assistant",
@@ -112,22 +111,17 @@ export function ChatBot() {
     <>
       {!open && (
         <button
-            onClick={() => setOpen(true)}
-            aria-label="Buka chat"
-            className="fixed bottom-4 right-4 h-14 w-14 rounded-full shadow-lg flex items-center justify-center"
-            style={{
-            backgroundColor: "#1D8143", // warna utama
-            border: "3px solid #FBFFE4", // warna sampingan
-            }}
+          onClick={() => setOpen(true)}
+          aria-label="Buka chat"
+          className="fixed bottom-4 right-4 h-14 w-14 rounded-full shadow-lg flex items-center justify-center"
+          style={{
+            backgroundColor: "#1D8143",
+            border: "3px solid #FBFFE4",
+          }}
         >
-            <img
-            src="/onlineSupport.png" // path setelah dipindah ke public
-            alt="Chat Icon"
-            className="w-8 h-8"
-            />
+          <img src="/onlineSupport.png" alt="Chat Icon" className="w-8 h-8" />
         </button>
-        )}
-
+      )}
 
       {open && (
         <Card className="fixed bottom-4 right-4 w-[min(92vw,380px)] rounded-2xl shadow-xl overflow-hidden border">
@@ -148,11 +142,10 @@ export function ChatBot() {
 
           <CardContent className="p-3">
             <div className="mb-2 rounded-xl bg-muted px-3 py-2 text-xs text-foreground/80">
-              {"Jika pertanyaan Anda tidak ada di daftar, silakan hubungi WhatsApp sekolah di "}
-              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="underline">
+              {"Jika pertanyaan tidak ada, silakan hubungi WhatsApp: "}
+              <a href={WA_LINK} target="_blank" className="underline">
                 {WA_NUMBER}
               </a>
-              {"."}
             </div>
 
             <div className="mb-2 flex flex-wrap gap-2">
@@ -186,13 +179,13 @@ export function ChatBot() {
                     <div className="flex justify-start">
                       <div className="rounded-2xl rounded-bl-sm bg-muted px-3 py-2 text-sm text-foreground">
                         {
-                          "Anda dapat menanyakan: alamat sekolah, profil, sejarah, visi, misi, struktur organisasi, kurikulum, PPDB, galeri, dan lainnya."
+                          "Anda dapat menanyakan: alamat, profil, sejarah, visi, misi, struktur organisasi, kurikulum, PPDB, galeri, dan lainnya."
                         }
                       </div>
                     </div>
                   )
                 }
-                return allMessages.map((m: any) => (
+                return allMessages.map((m) => (
                   <div key={m.id} className={cn("flex", m.role === "user" ? "justify-end" : "justify-start")}>
                     <div
                       className={cn(
@@ -202,7 +195,7 @@ export function ChatBot() {
                           : "rounded-bl-sm bg-muted text-foreground",
                       )}
                     >
-                      {m.parts?.map((p: any, idx: number) =>
+                      {m.parts?.map((p, idx) =>
                         p.type === "text" ? <span key={idx}>{p.text}</span> : null,
                       )}
                     </div>
@@ -226,14 +219,19 @@ export function ChatBot() {
               <label htmlFor="message" className="sr-only">
                 Tulis pertanyaan
               </label>
+
+              {/* 🟢 BAGIAN YANG DIPERBAIKI */}
               <input
                 id="message"
                 name="message"
                 className="flex-1 rounded-md border bg-background px-3 py-2 text-sm"
                 placeholder="Tanya: PPDB, kurikulum, ekstrakurikuler..."
-                disabled={status === "in_progress"}
+                disabled={status !== "ready"}
+
               />
-              <Button type="submit" className="bg-[#1D8143]" disabled={status === "in_progress"}>
+
+              <Button type="submit" className="bg-[#1D8143]" disabled={status !== "ready"}
+>
                 Kirim
               </Button>
             </form>
