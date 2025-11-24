@@ -20,7 +20,7 @@ export default function StrukturOrganisasi() {
           <div className="flex justify-center">
             <div className="relative w-full max-w-5xl rounded-lg overflow-hidden shadow-lg">
               <Image
-                src="/struktur-organisasi/strukturOrganisasi.png" // Ganti sesuai nama file gambar kamu
+                src="/struktur-organisasi/struktur.png" 
                 alt="Struktur Organisasi Sekolah"
                 width={1200}
                 height={800}

@@ -8,19 +8,21 @@ import EkskulSlider from "@/components/ekskulSlider";
 import { StudentGrafik } from "@/components/studentGrafik";
 import { MapsSection } from "@/components/mapsSection";
 import AlumniSection from "@/components/alumniSection";
+import { ChatBot } from "@/components/chat-bot";
 
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <Navbar/>
-      <section className="bg-green-700 py-12 md:py-16 lg:py-20 relative">
+      <WelcomeSection/>
+      
+      <section className="bg-[#F6FBD9] py-12 md:py-16 lg:py-20 relative">
         <div className="max-w-7xl mx-auto px-6">
           <GalleryGrid />
         </div>  
       </section>
 
-      <WelcomeSection/>
       <NewsCarousel/>
       <BrosurSlider/>
       <EkskulSlider/>

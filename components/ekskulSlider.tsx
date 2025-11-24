@@ -62,7 +62,7 @@ export default function EkskulSlider() {
     <section className="bg-[#1D8143] py-16 relative">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-10">
-          Ekstra Kulikuler Sekolah
+          Ekstrakurikuler Sekolah
         </h2>
 
         <Swiper

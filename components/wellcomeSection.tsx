@@ -3,9 +3,9 @@ import { ArrowRight } from "lucide-react"
 
 export function WelcomeSection() {
   return (
-    <section className="bg-[#F6FBD9] py-16 relative">
+    <section className="bg-[#1D8143] py-16 relative">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-green-700 text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-[#FBFFE4] text-center mb-12">
           SELAMAT DATANG DI MIS NURUL FALAH AREMAN
         </h2>
 
@@ -25,7 +25,7 @@ export function WelcomeSection() {
           </div>
 
           {/* Text */}
-          <div className="space-y-6 text-green-700 leading-relaxed text-justify">
+          <div className="space-y-6 text-[#FBFFE4] leading-relaxed text-justify">
             <p>
               MIT Nurul Falah Areman berdiri pada tahun 1959, dengan dipimpinan HMN. Syafiie R. sebagai kepala madrasah
               pertama. Didirikannya MIT Nurul Falah Areman di keluarahan Tugu Cimanggis Depok ini merupakan hasil

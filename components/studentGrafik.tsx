@@ -13,7 +13,7 @@ export function StudentGrafik() {
           {/* Wrapper tambahan untuk membatasi lebar maksimal gambar agar tidak terlalu besar */}
           <div className="relative w-full max-w-4xl"> 
             <Image
-              src="/grafik-siswa/grafik.png"
+              src="/grafik-siswa/image.png"
               alt="Grafik Penerimaan Siswa Baru Kelas 1"
               width={800}
               height={500}

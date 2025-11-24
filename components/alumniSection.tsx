@@ -10,7 +10,6 @@ export default function AlumniSection() {
       id: 1,
       name: "Muhammad Rizki",
       university: "Universitas Gadjah Mada",
-      universityLogo: "/alumni/image.png",
       testimonial:
         "Guru-guru yang penuh perhatian dan lingkungan sekolah yang positif membuat saya tumbuh dengan baik...",
        photo: "/alumni/profil.png",
@@ -19,7 +18,6 @@ export default function AlumniSection() {
       id: 2,
       name: "Jaka Sudrajad",
       university: "Universitas Indonesia",
-      universityLogo: "/alumni/image.png",
       testimonial:
         "Tak terasa waktu berlalu begitu cepat. Dulu saya hanya anak SD yang penuh mimpi...",
       photo: "/alumni/profil.png",
@@ -28,7 +26,6 @@ export default function AlumniSection() {
       id: 3,
       name: "Siti Nurhaliza",
       university: "ITB Bandung",
-      universityLogo: "/alumni/image.png",
       testimonial:
         "Pengalaman belajar di sekolah ini membentuk karakter dan semangat saya untuk terus maju...",
        photo: "/alumni/profil.png",
@@ -99,12 +96,6 @@ export default function AlumniSection() {
                   </h3>
 
                   <div className="flex items-center gap-2 mb-6">
-                    <Image
-                      src={alumni.universityLogo}
-                      alt={alumni.university}
-                      width={40}
-                      height={40}
-                    />
                     <p className="text-lg text-gray-800 font-semibold">
                       {alumni.university}
                     </p>
