@@ -24,27 +24,31 @@ export default function AdminDashboard() {
   const [misiInput, setMisiInput] = useState("")
   const [editingId, setEditingId] = useState<number | null>(null)
 
-  const handleUpload = () => {
-    if (visiInput.trim() || misiInput.trim()) {
-      if (editingId) {
-        setVisiMisiData(
-          visiMisiData.map((item) => (item.id === editingId ? { ...item, visi: visiInput, misi: misiInput } : item)),
-        )
-        setEditingId(null)
-      } else {
-        setVisiMisiData([
-          ...visiMisiData,
-          {
-            id: Date.now(),
-            visi: visiInput,
-            misi: misiInput,
-          },
-        ])
-      }
-      setVisiInput("")
-      setMisiInput("")
-    }
+const handleUpload = async () => {
+  if (!visiInput.trim() && !misiInput.trim()) return
+
+  if (editingId) {
+    // UPDATE
+    await fetch(`/api/visimisi/${editingId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ visi: visiInput, misi: misiInput })
+    })
+  } else {
+    // INSERT
+    await fetch(`/api/visimisi`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ visi: visiInput, misi: misiInput })
+    })
   }
+
+  setVisiInput("")
+  setMisiInput("")
+  setEditingId(null)
+}
+
+
 
   const handleEdit = (item: VisiMisiItem) => {
     setVisiInput(item.visi)

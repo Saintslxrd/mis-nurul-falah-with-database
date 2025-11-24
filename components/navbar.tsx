@@ -12,7 +12,7 @@ export function Navbar() {
 
   const tentangSekolahItems = [
     { label: "Sejarah", href: "/sejarah-sekolah" },
-    { label: "Visi Misi", href: "visi-misi" },
+    { label: "Visi", href: "visi" },
     { label: "Struktur Organisasi", href: "/struktur-organisasi" },
   ]
 

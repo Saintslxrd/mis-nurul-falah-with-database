@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//
+// =====================
+//       MODELS
+// =====================
+//
+
+model Admin {
+  id_admin Int    @id @default(autoincrement())
+  username String @db.VarChar(50)
+  password String @db.VarChar(100)
+}
+
+model VisiMisi {
+  id_visimisi Int    @id @default(autoincrement())
+  visi        String  @db.Text
+  misi        String  @db.Text
+}
+
+model StrukturGuru {
+  id_struktur  Int    @id @default(autoincrement())
+  foto_struktur String @db.VarChar(255)
+}
+
+model PPDB {
+  id_ppdb      Int      @id @default(autoincrement())
+  foto_poster  String   @db.VarChar(255)
+  tanggal_upload DateTime @db.Date
+}
+
+model Berita {
+  id_berita     Int      @id @default(autoincrement())
+  judul         String   @db.VarChar(150)
+  isi           String   @db.Text
+  gambar        String   @db.VarChar(255)
+  tanggal_upload DateTime @db.Date
+}
+
+model Galeri {
+  id_galeri     Int      @id @default(autoincrement())
+  judul         String   @db.VarChar(150)
+  gambar        String   @db.VarChar(255)
+  tanggal_upload DateTime @db.Date
+}
+
+model Alumni {
+  id_alumni  Int    @id @default(autoincrement())
+  nama       String @db.VarChar(100)
+  foto_alumni String @db.VarChar(255)
+  kutipan    String @db.Text
+  universitas String @db.VarChar(150)
+}
+
+model GrafikMurid {
+  id_grafik  Int      @id @default(autoincrement())
+  foto_grafik String   @db.VarChar(255)
+  tanggal     DateTime @db.Date
+}
