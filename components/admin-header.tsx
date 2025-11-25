@@ -7,16 +7,16 @@ import { useRouter } from "next/navigation"
 export function AdminHeader() {
   const router = useRouter()
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     const confirmLogout = window.confirm("Apakah Anda yakin ingin logout?")
 
-    if (confirmLogout) {
-      // HAPUS COOKIE auth_token
-      document.cookie = "auth_token=; path=/; max-age=0;"
+    if (!confirmLogout) return
 
-      // Redirect ke halaman login
-      router.push("/login")
-    }
+    // Panggil API logout yang menghapus cookie
+    await fetch("/api/logout")
+
+    // Redirect ke login
+    router.push("/login")
   }
 
   return (

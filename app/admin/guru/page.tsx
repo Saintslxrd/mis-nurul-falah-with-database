@@ -1,20 +1,25 @@
 "use client"
 
-import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Upload, Trash2, Edit2 } from "lucide-react"
 import Image from "next/image"
 
 export default function StrukturGuruPage() {
   const [uploadedImage, setUploadedImage] = useState<{ file: File; preview: string } | null>(null)
-  const [existingStructures, setExistingStructures] = useState([
-    {
-      id: 1,
-      name: "Struktur Organisasi 2024",
-      image: "/organizational-structure-chart.jpg",
-    },
-  ])
+  const [existingStructures, setExistingStructures] = useState([])
 
+  // ⬇️ Fetch data dari database
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("/api/struktur-guru")
+      const data = await res.json()
+      setExistingStructures(data)
+    }
+
+    fetchData()
+  }, [])
+
+  // Upload gambar
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file && file.size <= 5 * 1024 * 1024) {
@@ -34,20 +39,33 @@ export default function StrukturGuruPage() {
     }
   }
 
-  const handleUpload = () => {
-    if (uploadedImage) {
-      const newStructure = {
-        id: existingStructures.length + 1,
-        name: uploadedImage.file.name,
-        image: uploadedImage.preview,
-      }
-      setExistingStructures([...existingStructures, newStructure])
+  const handleUpload = async () => {
+    if (!uploadedImage) return
+
+    const formData = new FormData()
+    formData.append("file", uploadedImage.file)
+
+    const res = await fetch("/api/struktur-guru/upload", {
+      method: "POST",
+      body: formData,
+    })
+
+    const data = await res.json()
+
+    if (data.success) {
+      setExistingStructures([data.data, ...existingStructures])
       setUploadedImage(null)
     }
   }
 
-  const handleDelete = (id: number) => {
-    setExistingStructures(existingStructures.filter((item) => item.id !== id))
+  const handleDelete = async (id: number) => {
+    const res = await fetch(`/api/struktur-guru/${id}`, {
+      method: "DELETE",
+    })
+
+    if (res.ok) {
+      setExistingStructures(existingStructures.filter((item: any) => item.id !== id))
+    }
   }
 
   return (
@@ -124,7 +142,7 @@ export default function StrukturGuruPage() {
               </div>
 
               <div className="divide-y">
-                {existingStructures.map((structure) => (
+                {existingStructures.map((structure: any) => (
                   <div
                     key={structure.id}
                     className="grid grid-cols-2 gap-4 p-4 hover:bg-amber-50 transition-colors"

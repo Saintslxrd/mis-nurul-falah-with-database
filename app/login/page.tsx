@@ -18,27 +18,32 @@ export default function LoginPage() {
   const router = useRouter()
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
-    // LOGIN VALIDATION (bisa disambungkan ke database nanti)
-    const validUser = "admin"
-    const validPass = "12345"
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
 
-    setTimeout(() => {
-      if (username === validUser && password === validPass) {
-        // SET COOKIE (auth_token)
-        document.cookie = `auth_token=secret123; path=/; max-age=86400` // 1 hari
+      const data = await res.json();
 
-        router.push("/admin") // redirect ke admin
-      } else {
-        setError("Username atau password salah!")
+      if (!res.ok) {
+        setError(data.error || "Login gagal!");
+        setIsLoading(false);
+        return;
       }
 
-      setIsLoading(false)
-    }, 800)
-  }
+      router.push("/admin");
+    } catch {
+      setError("Terjadi kesalahan koneksi!");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-[#FBFFE4] flex items-center justify-center p-4">
