@@ -3,8 +3,8 @@ import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { prisma } from "@/lib/prisma";
 
-export async function POST(req: Request, { params }: { params: { tipe: string } }) {
-  const { tipe } = params;
+export async function POST(req: Request, { params }: { params: Promise<{ tipe: string }> }) {
+  const { tipe } = await params;
 
   const formData = await req.formData();
   const file = formData.get("file") as File | null;
@@ -60,8 +60,8 @@ export async function POST(req: Request, { params }: { params: { tipe: string } 
   return NextResponse.json({ success: true, data: created });
 }
 
-export async function GET(req: Request, { params }: { params: { tipe: string } }) {
-  const { tipe } = params;
+export async function GET(req: Request, { params }: { params: Promise<{ tipe: string }> }) {
+  const { tipe } = await params;
 
   const data = await prisma.pPDBFile.findFirst();
 

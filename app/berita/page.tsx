@@ -1,65 +1,43 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Image from "next/image"
 import BrosurSlider from "@/components/brosurSlider"
 import { motion, AnimatePresence } from "framer-motion"
 
+interface BeritaItem {
+  id: number
+  judul: string
+  isi: string
+  gambar: string
+  tanggal_upload: string
+}
+
 export default function BeritaPage() {
+  const [berita, setBerita] = useState<BeritaItem[]>([])
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
-  const beritaData = [
-    {
-      id: 1,
-      title: "Lomba menghias Roti Tawar bersama Choki-choki",
-      date: "22–Oktober–2025",
-      image: "/berita/choki-choki.png",
-      width: 310,
-      height: 388,
-    },
-    {
-      id: 2,
-      title: "Pelaksanaan PERSARI (Perkemahan Satu Hari)",
-      date: "22–Oktober–2025",
-      image: "/berita/persari.png",
-      width: 310,
-      height: 388,
-    },
-    {
-      id: 3,
-      title: "Pelaksanaan Asesmen Nasional Berbasis Komputer",
-      date: "22–Oktober–2025",
-      image: "/berita/anbk.png",
-      width: 388,
-      height: 388,
-    },
-    {
-      id: 4,
-      title: "Field Trip KIDZANIA",
-      date: "22–Oktober–2025",
-      image: "/berita/kidzania.png",
-      width: 274,
-      height: 388,
-    },
-    {
-      id: 5,
-      title: "Maulid Nabi Muhammad SAW",
-      date: "22–Oktober–2025",
-      image: "/berita/maulid.png",
-      width: 552,
-      height: 276,
-    },
-    {
-      id: 6,
-      title: "Field Trip KIDZANIA",
-      date: "22–Oktober–2025",
-      image: "/berita/fieldTrip.png",
-      width: 274,
-      height: 388,
-    },
-  ]
+  useEffect(() => {
+    const fetchBerita = async () => {
+      try {
+        const res = await fetch("/api/berita")
+        // Jika API salah route/error (bukan JSON): tampilkan log isi response
+        if (!res.ok) {
+          const msg = await res.text()
+          console.error("HTTP error", res.status, msg)
+          return
+        }
+        // Ambil data langsung sebagai JSON
+        const data = await res.json()
+        setBerita(data)
+      } catch (error) {
+        console.error("Gagal memuat berita:", error)
+      }
+    }
+    fetchBerita()
+  }, [])
 
   return (
     <>
@@ -70,42 +48,40 @@ export default function BeritaPage() {
             <h1 className="text-3xl md:text-4xl font-bold text-center mb-12 tracking-wide">
               BERITA MIS NURUL FALAH AREMAN
             </h1>
-
-            {/* Grid Berita */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-              {beritaData.map((item) => (
+              {berita.map((item) => (
                 <div
                   key={item.id}
                   className="text-center flex flex-col items-center cursor-pointer"
-                  onClick={() => setSelectedImage(item.image)}
+                  onClick={() => setSelectedImage(item.gambar)}
                 >
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
                   >
                     <Image
-                      src={item.image}
-                      alt={item.title}
-                      width={item.width}
-                      height={item.height}
+                      src={item.gambar}
+                      alt={item.judul}
+                      width={350}
+                      height={350}
                       className="h-auto w-auto max-w-full rounded-lg shadow-lg object-contain"
                     />
                   </motion.div>
                   <h2 className="text-white text-lg font-medium mt-4 mb-1 max-w-xs mx-auto">
-                    {item.title}
+                    {item.judul}
                   </h2>
-                  <p className="text-gray-200 text-sm">{item.date}</p>
+                  <p className="text-gray-200 text-sm">
+                    {new Date(item.tanggal_upload).toLocaleDateString("id-ID")}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
         </section>
       </main>
-
       <BrosurSlider />
       <Footer />
-
-      {/* Modal Gambar Fullscreen */}
+      {/* Modal Gambar */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -124,7 +100,7 @@ export default function BeritaPage() {
             >
               <Image
                 src={selectedImage}
-                alt="Preview Gambar"
+                alt="Preview"
                 width={900}
                 height={600}
                 className="rounded-lg object-contain max-h-[90vh] max-w-[90vw]"
