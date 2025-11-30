@@ -75,3 +75,10 @@ model GrafikMurid {
   foto_grafik String   @db.VarChar(255)
   tanggal     DateTime @db.Date
 }
+
+model PPDBFile {
+  id           Int      @id @default(autoincrement())
+  formulirUrl  String?  @db.VarChar(255)
+  panduanUrl   String?  @db.VarChar(255)
+  updatedAt    DateTime @updatedAt
+}

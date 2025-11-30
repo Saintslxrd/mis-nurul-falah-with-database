@@ -1,183 +1,223 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { Upload, Trash2, Edit2 } from "lucide-react"
-import Image from "next/image"
+import { useState, useEffect } from "react";
+import { useDropzone } from "react-dropzone";
+import Image from "next/image";
+import { Trash2 } from "lucide-react";
 
-export default function PPDBPage() {
-  const [uploadedImage, setUploadedImage] = useState<{ file: File; preview: string } | null>(null)
-  const [ppdbItems, setPpdbItems] = useState([
-    {
-      id: 1,
-      title: "PPDB 2025/2026",
-      image: "/ppdb-poster.jpg",
-      date: "2024-11-13",
-    },
-  ])
+export default function AdminPPDB() {
+  // Posters
+  const [posters, setPosters] = useState<any[]>([]);
+  const [uploadingPoster, setUploadingPoster] = useState(false);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file && file.size <= 5 * 1024 * 1024) {
-      const preview = URL.createObjectURL(file)
-      setUploadedImage({ file, preview })
-    } else {
-      alert("File terlalu besar. Maksimal 5MB.")
+  // PDF
+  const [formPdf, setFormPdf] = useState<string | null>(null);
+  const [panduanPdf, setPanduanPdf] = useState<string | null>(null);
+  const [uploadingForm, setUploadingForm] = useState(false);
+  const [uploadingPanduan, setUploadingPanduan] = useState(false);
+
+  // =============== LOAD DATA AWAL ===============
+  useEffect(() => {
+    // load posters
+    fetch("/api/ppdb")
+      .then((res) => res.json())
+      .then((res) => setPosters(res.data));
+
+    // load FORMULIR
+    fetch("/api/ppdb-file/form")
+      .then((res) => res.json())
+      .then((res) => setFormPdf(res.data));
+
+    // load PANDUAN
+    fetch("/api/ppdb-file/panduan")
+      .then((res) => res.json())
+      .then((res) => setPanduanPdf(res.data));
+  }, []);
+
+  // =============== UPLOAD POSTER ===============
+  const onDropPoster = async (acceptedFiles: File[]) => {
+    const file = acceptedFiles[0];
+    if (!file) return;
+
+    setUploadingPoster(true);
+    const form = new FormData();
+    form.append("image", file);
+
+    const res = await fetch("/api/ppdb", {
+      method: "POST",
+      body: form,
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      setPosters([result.data, ...posters]);
     }
-  }
+    setUploadingPoster(false);
+  };
 
-  const handleDragDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    const file = e.dataTransfer.files?.[0]
-    if (file && file.size <= 5 * 1024 * 1024) {
-      const preview = URL.createObjectURL(file)
-      setUploadedImage({ file, preview })
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: onDropPoster,
+    accept: { "image/*": [] },
+  });
+
+  // =============== DELETE POSTER ===============
+  const deletePoster = async (id: number) => {
+    if (!confirm("Hapus poster ini?")) return;
+
+    const res = await fetch(`/api/ppdb/${id}`, { method: "DELETE" });
+    const result = await res.json();
+
+    if (result.success) {
+      setPosters(posters.filter((p) => p.id_ppdb !== id));
     }
-  }
+  };
 
-  const handleUpload = () => {
-    if (uploadedImage) {
-      const newItem = {
-        id: ppdbItems.length + 1,
-        title: uploadedImage.file.name.replace(/\.[^/.]+$/, ""),
-        image: uploadedImage.preview,
-        date: new Date().toISOString().split("T")[0],
-      }
-      setPpdbItems([...ppdbItems, newItem])
-      setUploadedImage(null)
+  // =============== UPLOAD FORMULIR ===============
+  const uploadFormPdf = async (file: File) => {
+    setUploadingForm(true);
+
+    const form = new FormData();
+    form.append("file", file);
+
+    const res = await fetch("/api/ppdb-file/form", {
+      method: "POST",
+      body: form,
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      setFormPdf(result.data.formulirUrl);
     }
-  }
 
-  const handleDelete = (id: number) => {
-    setPpdbItems(ppdbItems.filter((item) => item.id !== id))
-  }
+    setUploadingForm(false);
+  };
+
+  // =============== UPLOAD PANDUAN ===============
+  const uploadPanduanPdf = async (file: File) => {
+    setUploadingPanduan(true);
+
+    const form = new FormData();
+    form.append("file", file);
+
+    const res = await fetch("/api/ppdb-file/panduan", {
+      method: "POST",
+      body: form,
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      setPanduanPdf(result.data.panduanUrl);
+    }
+
+    setUploadingPanduan(false);
+  };
 
   return (
-    <div className="flex-1 flex flex-col bg-[#FBFFE4]">
-      <main className="flex-1 overflow-auto p-8">
-        <div className="max-w-5xl mx-auto space-y-8">
-          {/* Upload Section */}
-          <div>
-            <h2 className="text-2xl font-bold text-[#1D8143] mb-6">
-              Masukan Poster PPDB{" "}
-              <span className="text-sm text-gray-500">(PNG, JPG - Max 5MB)</span>
-            </h2>
+    <div className="p-6 space-y-10">
+      <h1 className="text-3xl font-bold">Admin PPDB</h1>
 
-            <div
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={handleDragDrop}
-              className="bg-white rounded-lg border-2 border-dashed border-[#1D8143] p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-green-50 transition-colors"
-            >
-              <input
-                type="file"
-                accept="image/png,image/jpeg"
-                onChange={handleFileChange}
-                className="hidden"
-                id="ppdb-file-input"
+      {/* ======================= POSTER ======================= */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-3">Poster PPDB</h2>
+
+        <div
+          {...getRootProps()}
+          className={`border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition ${
+            isDragActive ? "border-green-600 bg-green-50" : "border-gray-400"
+          }`}
+        >
+          <input {...getInputProps()} />
+          {uploadingPoster ? (
+            <p className="text-green-700 font-semibold">Uploading...</p>
+          ) : (
+            <p className="text-gray-600">
+              {isDragActive
+                ? "Lepaskan file di sini..."
+                : "Drag & drop poster di sini atau klik untuk upload"}
+            </p>
+          )}
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-6">
+          {posters.map((p: any) => (
+            <div key={p.id_ppdb} className="relative">
+              <Image
+                src={p.foto_poster}
+                alt="Poster PPDB"
+                width={400}
+                height={400}
+                className="rounded-lg shadow"
               />
 
-              <label
-                htmlFor="ppdb-file-input"
-                className="flex flex-col items-center justify-center"
-              >
-                <button
-                  type="button"
-                  onClick={() =>
-                    document.getElementById("ppdb-file-input")?.click()
-                  }
-                  className="bg-[#1D8143] hover:bg-green-800 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 mb-4 transition-colors"
-                >
-                  <Upload className="w-5 h-5" />
-                  Upload File
-                </button>
-                <p className="text-gray-400">
-                  Klik untuk memilih Poster atau Drag & Drop di area ini
-                </p>
-              </label>
-
-              {uploadedImage && (
-                <div className="mt-6 w-full">
-                  <p className="text-sm text-gray-600 mb-3">
-                    Preview: {uploadedImage.file.name}
-                  </p>
-                  <div className="relative h-64 w-full bg-gray-100 rounded-lg overflow-hidden">
-                    <Image
-                      src={uploadedImage.preview || "/placeholder.svg"}
-                      alt="Preview"
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="flex justify-end mt-6">
               <button
-                onClick={handleUpload}
-                disabled={!uploadedImage}
-                className="bg-[#1D8143] hover:bg-green-800 disabled:bg-gray-400 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
+                onClick={() => deletePoster(p.id_ppdb)}
+                className="absolute top-2 right-2 bg-red-600 text-white p-2 rounded-full shadow"
               >
-                Upload
+                <Trash2 size={18} />
               </button>
             </div>
-          </div>
-
-          {/* Data Table */}
-          <div>
-            <h2 className="text-2xl font-bold text-[#1D8143] mb-6 pb-4 border-b-4 border-[#1D8143]">
-              Daftar PPDB
-            </h2>
-
-            <div className="bg-white rounded-lg overflow-hidden shadow-lg">
-              <div className="grid grid-cols-3 gap-4 bg-[#1D8143] text-white p-4 font-semibold">
-                <div>Poster</div>
-                <div>Informasi</div>
-                <div>Aksi</div>
-              </div>
-
-              <div className="divide-y">
-                {ppdbItems.map((item) => (
-                  <div
-                    key={item.id}
-                    className="grid grid-cols-3 gap-4 p-4 hover:bg-amber-50 transition-colors"
-                  >
-                    <div className="relative h-40 bg-gray-100 rounded-lg overflow-hidden">
-                      <Image
-                        src={item.image || "/placeholder.svg"}
-                        alt={item.title}
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-
-                    <div className="flex flex-col justify-center">
-                      <p className="font-semibold text-gray-800">
-                        {item.title}
-                      </p>
-                      <p className="text-sm text-gray-500">{item.date}</p>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <button className="bg-[#1D8143] hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 transition-colors">
-                        <Edit2 className="w-4 h-4" />
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(item.id)}
-                        className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 transition-colors"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                        Hapus
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
-      </main>
+      </section>
+
+      {/* ======================= UPLOAD PDF ======================= */}
+      <section className="space-y-6">
+        <h2 className="text-2xl font-semibold">Upload File PDF</h2>
+
+        {/* FORMULIR */}
+        <div className="bg-white p-5 rounded-lg shadow">
+          <p className="font-medium mb-2">Formulir Pendaftaran</p>
+
+          {formPdf && (
+            <a
+              href={formPdf}
+              target="_blank"
+              className="text-blue-600 underline mb-3 block"
+            >
+              Lihat Formulir Saat Ini
+            </a>
+          )}
+
+          <input
+            type="file"
+            accept="application/pdf"
+            onChange={(e) => e.target.files && uploadFormPdf(e.target.files[0])}
+            className="block"
+          />
+
+          {uploadingForm && (
+            <p className="text-green-700 mt-2">Uploading formulir...</p>
+          )}
+        </div>
+
+        {/* PANDUAN */}
+        <div className="bg-white p-5 rounded-lg shadow">
+          <p className="font-medium mb-2">Panduan Pembayaran</p>
+
+          {panduanPdf && (
+            <a
+              href={panduanPdf}
+              target="_blank"
+              className="text-blue-600 underline mb-3 block"
+            >
+              Lihat Panduan Saat Ini
+            </a>
+          )}
+
+          <input
+            type="file"
+            accept="application/pdf"
+            onChange={(e) =>
+              e.target.files && uploadPanduanPdf(e.target.files[0])
+            }
+            className="block"
+          />
+
+          {uploadingPanduan && (
+            <p className="text-green-700 mt-2">Uploading panduan...</p>
+          )}
+        </div>
+      </section>
     </div>
-  )
+  );
 }

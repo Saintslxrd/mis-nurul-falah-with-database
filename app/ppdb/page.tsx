@@ -1,21 +1,51 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import BrosurSlider from "@/components/brosurSlider"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay, Pagination } from "swiper/modules"
-import "swiper/css"
-import "swiper/css/pagination"
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import BrosurSlider from "@/components/brosurSlider";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
 export default function PpdbPage() {
-  const posters = [
-    "/ppdb/luar-ppdb.png",
-    "/ppdb/luar-ppdb-1.png",
-    "/ppdb/luar-ppdb-2.png",
-    "/ppdb/luar-ppdb-1.png",
-  ]
+  const [info, setInfo] = useState<any>(null);
+  const [posters, setPosters] = useState<string[]>([]);
+
+  // === AMBIL DATA PDF FORMULIR & PANDUAN DARI BACKEND ===
+  useEffect(() => {
+    fetch("/api/ppdb-file")
+      .then((res) => res.json())
+      .then((data) => setInfo(data))
+      .catch((err) => console.error("Gagal fetch info:", err));
+  }, []);
+
+  // === AMBIL POSTER PPDB DARI BACKEND ===
+  const fetchPosters = async () => {
+  try {
+    const res = await fetch("/api/ppdb");
+    const json = await res.json();
+
+    console.log("RESPON /api/ppdb:", json);
+
+    // cek apakah data array
+    const list = Array.isArray(json.data) ? json.data : [];
+
+    // ambil url poster
+    const urls = list.map((item: any) => item.foto_poster);
+
+    setPosters(urls);
+
+  } catch (error) {
+    console.error("Gagal memuat poster:", error);
+  }
+};
+
+  useEffect(() => {
+    fetchPosters();
+  }, []);
 
   return (
     <>
@@ -35,7 +65,7 @@ export default function PpdbPage() {
       {/* === BAGIAN UTAMA === */}
       <main className="bg-[#1D8143] min-h-screen py-10 md:py-16 px-4">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-
+          
           {/* === POSTER SLIDER === */}
           <div className="bg-white rounded-xl p-3 sm:p-4 shadow-lg">
             <Swiper
@@ -44,18 +74,24 @@ export default function PpdbPage() {
               pagination={{ clickable: true }}
               loop
             >
-              {posters.map((src, i) => (
-                <SwiperSlide key={i}>
-                  <div className="relative w-full aspect-3/4 rounded-lg overflow-hidden">
-                    <Image
-                      src={src}
-                      alt={`Poster PPDB ${i + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
+              {posters.length > 0 ? (
+                posters.map((src, i) => (
+                  <SwiperSlide key={i}>
+                    <div className="relative w-full aspect-3/4 rounded-lg overflow-hidden">
+                      <Image
+                        src={src}
+                        alt={`Poster PPDB ${i + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))
+              ) : (
+                <div className="text-center text-gray-500 py-10">
+                  Poster belum tersedia
+                </div>
+              )}
             </Swiper>
           </div>
 
@@ -73,19 +109,44 @@ export default function PpdbPage() {
               <li>Usia minimal 6 tahun (di bulan Juli)</li>
             </ul>
 
+            {/* === TOMBOL DOWNLOAD FORMULIR & PANDUAN === */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 mt-8">
-              <button className="bg-[#1D8143] hover:bg-[#166a36] text-white font-medium px-5 py-2 rounded-lg transition w-full sm:w-auto">
+
+              {/* FORMULIR */}
+              <button
+                disabled={!info?.formulirUrl}
+                onClick={() => window.open(info?.formulirUrl, "_blank")}
+                className={`px-5 py-2 rounded-lg font-medium w-full sm:w-auto
+                  ${
+                    info?.formulirUrl
+                      ? "bg-[#1D8143] hover:bg-[#166a36] text-white"
+                      : "bg-gray-300 text-gray-400 cursor-not-allowed"
+                  }
+                `}
+              >
                 Download Formulir
               </button>
 
-              <button className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium px-5 py-2 rounded-lg transition w-full sm:w-auto">
+              {/* PANDUAN */}
+              <button
+                disabled={!info?.panduanUrl}
+                onClick={() => window.open(info?.panduanUrl, "_blank")}
+                className={`px-5 py-2 rounded-lg font-medium w-full sm:w-auto
+                  ${
+                    info?.panduanUrl
+                      ? "bg-gray-200 hover:bg-gray-300 text-gray-700"
+                      : "bg-gray-300 text-gray-400 cursor-not-allowed"
+                  }
+                `}
+              >
                 Download Panduan Pembayaran
               </button>
+
             </div>
           </div>
         </div>
 
-        {/* Tambahan Slider Brosur di bawah */}
+        {/* === SLIDER BROSUR === */}
         <div className="mt-16">
           <BrosurSlider />
         </div>
@@ -93,5 +154,5 @@ export default function PpdbPage() {
 
       <Footer />
     </>
-  )
+  );
 }
